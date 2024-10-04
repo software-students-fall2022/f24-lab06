@@ -85,7 +85,7 @@ public class IntQueueTest {
         Integer value = 0;
         mQueue.enqueue(value);
         assertEquals(value, mQueue.dequeue());
-        assertNull("Shall be empty but actually not", mQueue.peek());
+        assertNull("Shall be empty but actually not", mQueue.dequeue());
     }
 
     @Test
@@ -107,6 +107,41 @@ public class IntQueueTest {
                 assertEquals(mQueue.dequeue(), result);
             }
         }
+    }
+
+    @Test
+    public void testCapacity(){
+        for(int i = 0; i < 11; i ++){
+            mQueue.enqueue(i);
+        }
+        //The size shall be 11
+        assertEquals(11, mQueue.size());
+
+        //Clear it once to move header
+        for(int i = 0; i < 11; i ++){
+            mQueue.dequeue();
+        }
+        assertEquals(0, mQueue.size());
+
+        //Then enlarge size while header is no longer 0
+        for(int i = 0; i < 23; i ++){
+            mQueue.enqueue(i);
+        }
+        //The size shall be 23
+        assertEquals(23, mQueue.size());
+    }
+
+    @Test
+    public void testClear(){
+        for(int i = 0; i < 5; i ++){
+            mQueue.enqueue(i);
+        }
+        //The size shall be 5
+        assertEquals(5, mQueue.size());
+        mQueue.clear();
+
+        //The size shall be 0
+        assertEquals(0, mQueue.size());
     }
 
 
